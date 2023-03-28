@@ -80,11 +80,90 @@ namespace KRPC2.SpaceCenter
             }
         }
 
+        // TODO: Add PilotAddon (see krpc/krpc2#30)
         /// <summary>
         /// The state of the roll control. A value between -1 and 1.
         /// </summary>
+        /// <remarks>
+        /// This will set the roll control to have this value as a baseline.
+        /// For an instantaneous roll change, see <see cref="RollImpulse"/>.
+        /// </remarks>
         [KRPCProperty]
         public float Roll
+        {
+            get
+            {
+                return InternalVessel.flightCtrlState.rollTrim;
+            }
+            set
+            {
+                var incremental = new FlightCtrlStateIncremental()
+                {
+                    rollTrim = value
+                };
+                AtomicSet(incremental);
+            }
+        }
+
+        // TODO: Add PilotAddon (see krpc/krpc2#30)
+        /// <summary>
+        /// The state of the yaw control. A value between -1 and 1.
+        /// </summary>
+        /// <remarks>
+        /// This will set the yaw control to have this value as a baseline.
+        /// For an instantaneous yaw change, see <see cref="YawImpulse"/>.
+        /// </remarks>
+        [KRPCProperty]
+        public float Yaw
+        {
+            get
+            {
+                return InternalVessel.flightCtrlState.yawTrim;
+            }
+            set
+            {
+                var incremental = new FlightCtrlStateIncremental()
+                {
+                    yawTrim = value
+                };
+                AtomicSet(incremental);
+            }
+        }
+
+        // TODO: Add PilotAddon (see krpc/krpc2#30)
+        /// <summary>
+        /// The state of the pitch control. A value between -1 and 1.
+        /// </summary>
+        /// <remarks>
+        /// This will set the pitch control to have this value as a baseline.
+        /// For an instantaneous pitch change, see <see cref="PitchImpulse"/>.
+        /// </remarks>
+        [KRPCProperty]
+        public float Pitch
+        {
+            get
+            {
+                return InternalVessel.flightCtrlState.pitchTrim;
+            }
+            set
+            {
+                var incremental = new FlightCtrlStateIncremental()
+                {
+                    pitchTrim = value
+                };
+                AtomicSet(incremental);
+            }
+        }
+
+        /// <summary>
+        /// Instantaneous change to the roll control, and current roll state. A value between -1 and 1.
+        /// </summary>
+        /// <remarks>
+        /// Reading this value provides the instantaneous roll control value.
+        /// Setting this value is the same as tapping q/e in stock KSP2.
+        /// </remarks>
+        [KRPCProperty]
+        public float RollImpulse
         {
             get
             {
@@ -101,10 +180,14 @@ namespace KRPC2.SpaceCenter
         }
 
         /// <summary>
-        /// The state of the yaw control. A value between -1 and 1.
+        /// Instantaneous change to the yaw control, and current yaw state. A value between -1 and 1.
         /// </summary>
+        /// <remarks>
+        /// Reading this value provides the instantaneous yaw control value.
+        /// Setting this value is the same as tapping a/d in stock KSP2.
+        /// </remarks>
         [KRPCProperty]
-        public float Yaw
+        public float YawImpulse
         {
             get
             {
@@ -121,10 +204,14 @@ namespace KRPC2.SpaceCenter
         }
 
         /// <summary>
-        /// The state of the pitch control. A value between -1 and 1.
+        /// Instantaneous change to the pitch control, and current pitch state. A value between -1 and 1.
         /// </summary>
+        /// <remarks>
+        /// Reading this value provides the instantaneous pitch control value.
+        /// Setting this value is the same as tapping w/s in stock KSP2.
+        /// </remarks>
         [KRPCProperty]
-        public float Pitch
+        public float PitchImpulse
         {
             get
             {
@@ -135,66 +222,6 @@ namespace KRPC2.SpaceCenter
                 var incremental = new FlightCtrlStateIncremental()
                 {
                     pitch = value
-                };
-                AtomicSet(incremental);
-            }
-        }
-
-        /// <summary>
-        /// The state of the roll trim control. A value between -1 and 1.
-        /// </summary>
-        [KRPCProperty]
-        public float RollTrim
-        {
-            get
-            {
-                return InternalVessel.flightCtrlState.rollTrim;
-            }
-            set
-            {
-                var incremental = new FlightCtrlStateIncremental()
-                {
-                    rollTrim = value
-                };
-                AtomicSet(incremental);
-            }
-        }
-
-        /// <summary>
-        /// The state of the yaw trim control. A value between -1 and 1.
-        /// </summary>
-        [KRPCProperty]
-        public float YawTrim
-        {
-            get
-            {
-                return InternalVessel.flightCtrlState.yawTrim;
-            }
-            set
-            {
-                var incremental = new FlightCtrlStateIncremental()
-                {
-                    yawTrim = value
-                };
-                AtomicSet(incremental);
-            }
-        }
-
-        /// <summary>
-        /// The state of the pitch trim control. A value between -1 and 1.
-        /// </summary>
-        [KRPCProperty]
-        public float PitchTrim
-        {
-            get
-            {
-                return InternalVessel.flightCtrlState.pitchTrim;
-            }
-            set
-            {
-                var incremental = new FlightCtrlStateIncremental()
-                {
-                    pitchTrim = value
                 };
                 AtomicSet(incremental);
             }

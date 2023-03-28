@@ -48,10 +48,17 @@ load("@build_stack_rules_proto//deps:protobuf_core_deps.bzl", "protobuf_core_dep
 
 protobuf_core_deps()
 
-git_repository(
+# git_repository(
+#     name = "krpc_core",
+#     commit = "0679f00caa46bd56ab94a4ec4362fa5ef3cf6821",
+#     remote = "https://github.com/krpc/krpc-core",
+# )
+
+local_repository(
     name = "krpc_core",
-    commit = "0679f00caa46bd56ab94a4ec4362fa5ef3cf6821",
-    remote = "https://github.com/krpc/krpc-core",
+    path = "../krpc-core",
+    #commit = "0679f00caa46bd56ab94a4ec4362fa5ef3cf6821",
+    #remote = "https://github.com/krpc/krpc-core",
 )
 
 load("@krpc_core//:workspace.bzl", "krpc_core_prebuilt_protoc", "krpc_core_workspace")
